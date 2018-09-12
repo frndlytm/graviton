@@ -1,19 +1,46 @@
 import requests
 
 class FailedRequestError(Exception):
-    def __init__(self, url, message):
+    def __init__(self, status, url, message):
+        self.status = status
         self.url = url
         self.message = message
 
 
 class IApi:
-    def __init__(self):
+    def __init__(self, strategy, endpoints={}):
         self._root = None
         self._version = None
         self._group = None
+        self.strategy = strategy
+        self.endpoints = endpoints
 
-    def get(self):
-        raise NotImplementedError
+    def __str__(self):
+        """Return the formatted url string for the Bittrex API, like:
+        
+                https://bittrex.com/api/v1.1/public/{endpoint}
+        """
+        return '/'.join(
+            [self.root, self.version, self.group]
+        )
+
+    def get(self, endpoint, path):
+        """get() response, and return the data using the attached strategy.
+        """ 
+        url = '{}/{}'.format(str(self), str(endpoint))
+        response = requests.get(url)
+        if 200 <= response.status_code < 300:
+            return self.strategy.respond(response, path)
+        else:
+            raise FailedRequestError(
+                response.status_code, url, 'cannot be found.'
+            )
+
+    def add_endpoint(self, endpoint):
+        """add_endpoint() appends an Endpoint to the list of queryable
+        endpoints.
+        """
+        self.endpoints[endpoint.get_name()] = endpoint
 
     @property
     def root(self):
@@ -39,7 +66,7 @@ class IApi:
 
 
 class BittrexApi(IApi):
-    """BittrexMeta houses the API base info and builds the base url
+    """BittrexApi houses the API base info and builds the base url
     string for calls to a NULL endpoint.
     """
     root = 'https://bittrex.com/api'
@@ -47,26 +74,10 @@ class BittrexApi(IApi):
     group = 'public'
 
 
-    def __init__(self, strategy):
-        self.strategy = strategy
 
-
-    def __str__(self):
-        """Return the formatted url string for the Bittrex API, like:
-                
-                https://bittrex.com/api/v1.1/public/{endpoint}
-        """
-        return '/'.join([self.root, self.version, self.group])
-
-
-    def get(self, endpoint, path):
-        """get() response, and return the data using the attached strategy.
-        """ 
-        url = '{}/{}'.format(str(self), endpoint)
-        response = requests.get(url)
-        if response.json()['success']:
-            return self.strategy.respond(response, path)
-        else:
-            raise FailedRequestError(url, 'cannot be found.')
-
-
+class CryptoCompareApi(IApi):
+    """CryptoCompareApi houses the API base info and builds the url
+    string for calls to the NULL endpoint. 
+    """
+    root = 'https://min-api.cryptocompare.com'
+    group = 'data'
