@@ -70,4 +70,3 @@ class BittrexApi(IApi):
             raise FailedRequestError(url, 'cannot be found.')
 
 
-        

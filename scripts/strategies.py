@@ -8,6 +8,20 @@ class ResponseStrategy:
         . DataFrameResponseStrategy
         . JsonResponseStrategy
     """
+    def _follow_path(self, response, path):
+        """_follow_path() follows the path (as a file path) 
+        into a JSON response and returns the results of the
+        requested path.
+
+        Downstream, respond() handles the conversion to the
+        strategy type.  
+        """
+        results = response.json()
+        for part in path.split('/'):
+            results = results[part]
+        return results 
+
+
     def respond(self, response, path):
         """respond() returns the data from the response using
         the concrete response type.
@@ -31,15 +45,8 @@ class DataFrameResponseStrategy(ResponseStrategy):
     format.
     """
     def respond(self, response, path):
-        # Assume the path is like a file path
-        path = path.split('/')
-
-        # Using the response, traverse the path
-        # incrementally 
-        results = response.json()
-        for item in path:
-            results = results[item]
-
+        # Follow the path into the response.
+        results = self._follow_path(response, path)
         # Send it to DataFrame and return
         results = pd.DataFrame(results)
         return results
