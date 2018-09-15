@@ -13,4 +13,3 @@ Graviton is a pure-python, pulse-based pipeline scheduler for querying Rest APIs
 3. Build Endpoints and ParameterDecorators.
 4. Configure concrete Endpoints for BittrexEndpointBuilder.
 5. Build ApiFactory super and BittrexKit factory to bundle Bittrex Api requirements.
-
