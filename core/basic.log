@@ -1,6 +1,0 @@
-[2018-09-10 20:21:27,974] DEBUG: Starting new HTTPS connection (1): min-api.cryptocompare.com:443
-[2018-09-10 20:21:28,552] DEBUG: https://min-api.cryptocompare.com:443 "GET /data/price?fsym=BTC&tsyms=SAT%2CUSD%2CEUR HTTP/1.1" 200 None
-[2018-09-10 20:21:28,557] INFO: https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=SAT%2CUSD%2CEUR {"USD":6314.38,"EUR":5441.31}
-[2018-09-10 20:21:28,563] DEBUG: Starting new HTTPS connection (1): min-api.cryptocompare.com:443
-[2018-09-10 20:21:29,073] DEBUG: https://min-api.cryptocompare.com:443 "GET /data/price?fsym=UBQ&tsyms=SAT%2CUSD%2CEUR HTTP/1.1" 200 None
-[2018-09-10 20:21:29,077] INFO: https://min-api.cryptocompare.com/data/price?fsym=UBQ&tsyms=SAT%2CUSD%2CEUR {"USD":0.5222,"EUR":0.45}
