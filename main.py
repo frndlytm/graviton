@@ -1,5 +1,5 @@
-from model import BittrexApi
-from strategies import DataFrameResponseStrategy
+from core.apis import BittrexApi
+from core.getters import DataFrameResponseStrategy
 
 if __name__ == '__main__':
     api = BittrexApi(DataFrameResponseStrategy())
