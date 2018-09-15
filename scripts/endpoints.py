@@ -1,4 +1,0 @@
-class Endpoint:
-    """Endpoints 
-    """
-    pass 
