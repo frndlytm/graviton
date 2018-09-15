@@ -1,12 +1,12 @@
 import pandas as pd
 
-class ResponseStrategy:
+class Getter:
     """Assuming a successful response, how should we handle
     the incoming data. Examples of concrete ResponseStrategies 
     are:
-        . DictResponseStrategy
-        . DataFrameResponseStrategy
-        . JsonResponseStrategy
+        . DictGetter
+        . DataFrameGetter
+        . JsonGetter
     """
     def _follow_path(self, response, path):
         """_follow_path() follows the path (as a file path) 
@@ -32,7 +32,7 @@ class ResponseStrategy:
         raise NotImplementedError
 
 
-class DictResponseStrategy(ResponseStrategy):
+class DictGetter(Getter):
     """Returns the results from a reponse in the Python
     standard dictionary form.
     """
@@ -40,7 +40,7 @@ class DictResponseStrategy(ResponseStrategy):
         pass
 
 
-class DataFrameResponseStrategy(ResponseStrategy):
+class DataFrameGetter(Getter):
     """Returns the results from a response in a DataFrame
     format.
     """
@@ -52,8 +52,8 @@ class DataFrameResponseStrategy(ResponseStrategy):
         return results
 
 
-class JsonResponseStrategy(ResponseStrategy):
-    """Returns the results as a JSON bytes sequence.
+class JsonGetter(Getter):
+    """Returns the results as a JSON bytes string.
     """
     def respond(self, response, path):
         pass
