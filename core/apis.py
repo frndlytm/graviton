@@ -67,8 +67,20 @@ class Api:
     @property
     def path(self):
         return '/'.join(self._path)
+
     def extend_path(self, ext):
+        """extend() ensures the value is a string
+        and adds it to the list of extensions.
+        """
+        ext = str(ext)
         self._path.append(ext)
+
+    def trim_path(self, n=1):
+        """trim() removes n items from the list of
+        extensions, defaulting to 1 value for simple
+        time() calls.
+        """
+        self._path = self._path[:-n]
     
 
 
