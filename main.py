@@ -1,7 +1,10 @@
-from core.apis import Api
-from core.getters import DataFrameResponseStrategy
+from core.apis import Api, JsonRestApiImp
+from core.getters import DataFrameGetter
+from core.posters import NullPoster
+from core.putters import NullPutter
+from core.deleters import NullDeleter
 
-class BittrexApiImp(JsonRestApiImp):
+class Bittrex(Api):
     """BittrexApi houses the API base info and builds the base url
     string for calls to a NULL endpoint.
     """
@@ -10,8 +13,7 @@ class BittrexApiImp(JsonRestApiImp):
     nodes = ['public']
 
 
-
-class CryptoCompareApiImp(JsonRestApiImp):
+class CryptoCompare(Api):
     """CryptoCompareApi houses the API base info and builds the url
     string for calls to the NULL endpoint. 
     """
@@ -21,5 +23,11 @@ class CryptoCompareApiImp(JsonRestApiImp):
 
 
 if __name__ == '__main__':
-    api = BittrexApi(DataFrameResponseStrategy())
+    api = Bittrex(
+        JsonRestApiImp(),
+        DataFrameGetter(),
+        NullPoster(),
+        NullPutter(),
+        NullDeleter()
+    )
     print(api.get('getmarkets', 'result'))
