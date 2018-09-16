@@ -29,11 +29,12 @@ class Api:
     inheritance structure so that Api and Endpoint can
     both be decorated using these decorators.
     """
-    def __init__(self, getter, poster, putter, deleter):
+    def __init__(self, imp, getter, poster, putter, deleter):
         self._root = None       # base url
         self._key = None        # private key
         self._path = []         # url extensions
         self._calls = {}        # endpoints by name
+        self.imp = imp          # implementation
         self.getter = getter    # GET strategy
         self.poster = poster    # POST strategy
         self.putter = putter    # PUT strategy
@@ -141,7 +142,7 @@ class Api:
 
 
 
-class ApiImp(Api):
+class ApiImp:
     """ApiImp is a bridge to the various types of APIs
     on the internet. APIs can respond with various kinds
     of data, so know what to expect can inform the way
@@ -153,18 +154,17 @@ class ApiImp(Api):
         . JsonRestApiImp
         . XmlRestApiImp
 
-    To make sure everything works the same for now, I have
-    forced inheritence of the Api interface instead of
-    defining a new interface. I need to learn more about
-    the bridge pattern first though.
     """
+    pass
 
 
 class JsonRestApiImp(ApiImp):
-    """
+    """JsonRestApiImp manages accessing JSON-formatted
+    data for the path to return the desired results.
     """
 
 
 class XmlRestApiImp(ApiImp):
-    """
+    """XmlRestApiImp manages accessing XML-formatted
+    data for the path to return the desired results.
     """
