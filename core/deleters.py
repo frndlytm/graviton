@@ -1,7 +1,7 @@
-class Putter:
+class Deleter:
     def respond(self, url):
         raise NotImplementedError
 
-class NullPutter(Putter):
+class NullDeleter(Deleter):
     def respond(self, url):
         return None
