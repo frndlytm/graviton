@@ -1,6 +1,7 @@
-import requests
-from core.exceptions import FailedRequestError
-
+"""
+@name: grav.core.apis
+@auth: frndlytm@github.com
+"""
 class Api:
     """Api manages the strategies for using a Rest API
     and its available calls. The API has a few private
@@ -137,22 +138,33 @@ class Api:
 
 
 
-class ApiImp: pass
 
-class BittrexApiImp(ApiImp):
-    """BittrexApi houses the API base info and builds the base url
-    string for calls to a NULL endpoint.
+
+
+class ApiImp(Api):
+    """ApiImp is a bridge to the various types of APIs
+    on the internet. APIs can respond with various kinds
+    of data, so know what to expect can inform the way
+    we need to handle the responses.
+
+    Currently, I can only think of needing to handle the
+    following concrete ApiImps:
+
+        . JsonRestApiImp
+        . XmlRestApiImp
+
+    To make sure everything works the same for now, I have
+    forced inheritence of the Api interface instead of
+    defining a new interface. I need to learn more about
+    the bridge pattern first though.
     """
-    root = 'https://bittrex.com/api'
-
-    version = 'v1.1'
-    nodes = ['public']
 
 
-
-class CryptoCompareApiImp(ApiImp):
-    """CryptoCompareApi houses the API base info and builds the url
-    string for calls to the NULL endpoint. 
+class JsonRestApiImp(ApiImp):
     """
-    root = 'https://min-api.cryptocompare.com'
-    nodes = ['data']
+    """
+
+
+class XmlRestApiImp(ApiImp):
+    """
+    """
