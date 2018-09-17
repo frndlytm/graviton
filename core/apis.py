@@ -89,7 +89,8 @@ class Api:
         """add_endpoint() appends an Endpoint to the 
         list of queryable endpoints.
         """
-        self._calls[endpoint.get_name()] = endpoint
+        name = endpoint.get_name()
+        self._calls[name] = endpoint
 
 
 
@@ -103,7 +104,7 @@ class Api:
 
         """ 
         # Build an endpoint using the parameters...
-        endpoint = self._calls[call](params)
+        endpoint = self._calls[call].render(params)
         url = '{}/{}'.format(str(self), str(endpoint))
         return self.getter.respond(url, path)
 
