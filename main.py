@@ -8,9 +8,7 @@ class Bittrex(Api):
     """BittrexApi houses the API base info and builds the base url
     string for calls to a NULL endpoint.
     """
-    root = 'https://bittrex.com/api'
-    version = 'v1.1'
-    nodes = ['public']
+    root = 'https://bittrex.com'
 
 
 class CryptoCompare(Api):
@@ -18,7 +16,6 @@ class CryptoCompare(Api):
     string for calls to the NULL endpoint. 
     """
     root = 'https://min-api.cryptocompare.com'
-    nodes = ['data']
 
 
 
@@ -30,4 +27,9 @@ if __name__ == '__main__':
         NullPutter(),
         NullDeleter()
     )
-    print(api.get('getmarkets', 'result'))
+    api.extend_path('api')
+    api.extend_path('v1.1')
+    api.extend_path('public')
+    print(str(api))
+    
+    

@@ -3,7 +3,7 @@
 @auth: frndlytm@github.com
 """
 class EndpointBuilder:
-    """EndpointFactories build templates for Endpoints
+    """EndpointBuilders build templates for Endpoints
     from configuration dictating required parameters
     and default values.
     """

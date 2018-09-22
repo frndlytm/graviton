@@ -3,3 +3,8 @@ class FailedRequestError(Exception):
         self.status = status
         self.url = url
         self.message = message
+
+class NotGettableException(Exception):
+    def __init__(self, endpoint):
+        self.endpoint = endpoint
+        
